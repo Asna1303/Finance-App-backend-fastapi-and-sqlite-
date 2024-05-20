@@ -1,12 +1,11 @@
 from fastapi import FastAPI, HTTPException, Depends
-from typing import Annotated, List
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
 from database import SessionLocal, engine
 import models
 from fastapi.middleware.cors import CORSMiddleware
 from database import engine
-
+from typing import Annotated, List
 
 app = FastAPI()
 
