@@ -1,10 +1,7 @@
 from fastapi import FastAPI, HTTPException, Depends
-
-
 from database import SessionLocal, engine
 import models
 from fastapi.middleware.cors import CORSMiddleware
-from database import engine, SessionLocal
 from typing import Annotated, List
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
@@ -27,19 +24,18 @@ app.add_middleware(
 )
 
 
-class TransactionBase(BaseModel):
-    amount: float
-    category: str
-    description: str
-    is_income: bool
-    date: str
-
 class TransactionModel(TransactionBase):
     id: int
     
     # class Config:
     #     orm_mode = True
-    
+  
+class TransactionBase(BaseModel):
+    amount: float
+    category: str
+    description: str
+    is_income: bool
+    date: str 
 
 def get_db():
     db = SessionLocal()
