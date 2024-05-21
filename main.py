@@ -42,10 +42,6 @@ class TransactionModel(TransactionBase):
 
 
 
-
-
-models.Base.metadata.create_all(bind=engine)
-
 def get_db():
     db = SessionLocal()
     try:
@@ -53,6 +49,8 @@ def get_db():
     finally:
         db.close()
 db_dependency = Annotated[Session, Depends(get_db)]
+
+models.Base.metadata.create_all(bind=engine)
 
 @app.post("/transactions/", response_model=TransactionModel)
 async def create_transaction(transaction: TransactionBase, db: db_dependency):
