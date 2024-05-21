@@ -39,18 +39,19 @@ class TransactionModel(TransactionBase):
     # class Config:
     #     orm_mode = True
 
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
+
 
 
 db_dependency = Annotated[Session, Depends(get_db)]
 
 models.Base.metadata.create_all(bind=engine)
 
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
 
 @app.post("/transactions/", response_model=TransactionModel)
 async def create_transaction(transaction: TransactionBase, db: db_dependency):
