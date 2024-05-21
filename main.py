@@ -24,11 +24,6 @@ app.add_middleware(
 )
 
 
-class TransactionModel(TransactionBase):
-    id: int
-    
-    # class Config:
-    #     orm_mode = True
   
 class TransactionBase(BaseModel):
     amount: float
@@ -36,6 +31,13 @@ class TransactionBase(BaseModel):
     description: str
     is_income: bool
     date: str 
+
+    
+class TransactionModel(TransactionBase):
+    id: int
+    
+    # class Config:
+    #     orm_mode = True
 
 def get_db():
     db = SessionLocal()
